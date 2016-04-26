@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <style>
+        .datalist {
+            border: 1px solid #2b669a;
+        }
+
+        .datalist div {
+            border: 1px solid #1b6d85;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="datalist"></div>
+
+
+<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../src/scroll-paginator.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        var scrollPaginatorObj;
+
+        var loaddata = function (page) {
+            var parms = {};
+            parms.currentPageNum = page || 1;
+            parms.rowsOfPage = 5;
+
+            if (!scrollPaginatorObj) {
+                scrollPaginatorObj = new scrollPaginator($('.datalist'), {
+//                    height: 200,
+                    onScrollBottomed: function (page) {
+                        loaddata(page);
+                    }
+                });
+            }
+            scrollPaginatorObj.setCurrentPage(page);
+
+            var url = 'http://10.8.101.20:8080/core/api/facegroup?' + Math.random();
+            $.ajax({
+                type: "get",
+                url: url,
+                data: parms || "",
+                dataType: "json",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                success: function (data) {
+                    if (data) {
+                        var datalist=data.data;
+                        try {
+                            if(datalist && datalist.length>0){
+                                $(datalist).each(function () {
+                                    $("<div>").html(this.name).appendTo($('div.datalist'));
+                                });
+                            }else{
+                                scrollPaginatorObj.haveData(false);
+                            }
+                        } catch (e) {
+                            showError(e);
+                        }
+                    }
+
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.error(errorThrown.message);
+                }
+            });
+        }
+
+
+        loaddata(1);
+
+
+    });
+
+</script>
+
+</body>
+</html>
