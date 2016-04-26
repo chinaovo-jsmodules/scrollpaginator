@@ -40,18 +40,11 @@
 
             this.$scrollWin.css({'height': this.height + 'px', 'overflow-y': 'auto'}).scrollTop(0);
 
-            //this.listen();
-
-            //render the paginator
-            //this.render();
             this.bindEvent();
         },
         setCurrentPage: function (page) {
             this.currentPage = parseInt(page, 10);
         },
-        //listen: function () {
-        //    this.$element.bind("page-clicked", this.onPageClicked);
-        //},
         onScrollBottomed: function (evt, page) {
             var loadmsg = $('.loadmsg', this.$scrollWin);
             if (loadmsg.length < 1) {
@@ -92,16 +85,10 @@
                 var scrollTop = $(this).scrollTop();
                 var scrollHeight = _scrollelement.height();
                 var winHeight = $(this).height();
-
-                //console.debug('w.s=' + scrollTop + ',w.h=' + winHeight + ',w.s+w.h=' + (scrollTop + winHeight) + ',l.h()=' + scrollHeight);
-
                 if (scrollTop + winHeight > scrollHeight) {//滚动到底部执行事件
-                    //console.debug('doScrollBottomed');
                     _this.onScrollBottomed();
                 }
-
                 if (scrollTop == 0) {//滚动到头部部执行事件
-
                 }
             });
         }
