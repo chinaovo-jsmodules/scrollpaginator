@@ -75,7 +75,7 @@
  ```
  
  
- ##注意
+## 注意
  
  使用scrollTop的元素或上级元素处理display:none的状态下时,使用$.scrollTop(n)将会失效.
  所以当在bootstrap的模式窗口中使用滚动分布组件中,需要在modal.modal('show')后进入数据的延迟加载:
