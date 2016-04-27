@@ -16,16 +16,20 @@
     </style>
 </head>
 <body>
-
+<button>重新加载</button>
 <div class="datalist"></div>
 
 
 <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="../src/scroll-paginator.js"></script>
+<script type="text/javascript" src="../dist/scrollpaginator-min.js"></script>
 
 <script>
     jQuery(document).ready(function () {
         var scrollPaginatorObj;
+
+        $('button').click(function(){
+            loaddata(1);
+        });
 
         var loaddata = function (page) {
             var parms = {};
